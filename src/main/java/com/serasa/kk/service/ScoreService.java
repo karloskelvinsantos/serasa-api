@@ -23,4 +23,9 @@ public class ScoreService {
         var score = mapper.map(scoreDTO, Score.class);
         return scoreRepository.save(score);
     }
+
+    public String findDescriptionByScore(Integer score) {
+        var scoreDescription = scoreRepository.findDescriptionByRangeScore(score);
+        return scoreDescription;
+    }
 }

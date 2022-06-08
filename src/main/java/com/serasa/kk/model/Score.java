@@ -22,11 +22,10 @@ public class Score implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonAlias({ "id", "scoreDescricao", "inicial", "final" })
+    @JsonAlias({"id", "scoreDescricao", "inical", "final"})
     private Long id;
     private String scoreDescricao;
-    @JsonProperty("inicial")
-    private int scoreInicial;
+    private int inicial;
     @JsonProperty("final")
     private int scoreFinal;
 }

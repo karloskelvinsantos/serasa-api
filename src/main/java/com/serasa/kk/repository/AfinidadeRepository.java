@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AfinidadeRepository extends JpaRepository<Afinidade, Long> {
+
+    Afinidade findByRegiaoEqualsIgnoreCase(String regiao);
 }

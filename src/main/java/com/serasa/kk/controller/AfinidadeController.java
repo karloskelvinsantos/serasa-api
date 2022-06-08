@@ -1,7 +1,6 @@
 package com.serasa.kk.controller;
 
 import com.serasa.kk.dto.AfinidadeDTO;
-import com.serasa.kk.model.Afinidade;
 import com.serasa.kk.service.AfinidadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,7 @@ public class AfinidadeController {
     }
 
     @PostMapping
-    public ResponseEntity<Afinidade> create(@Valid @RequestBody AfinidadeDTO afinidadeDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<AfinidadeDTO> create(@Valid @RequestBody AfinidadeDTO afinidadeDTO, UriComponentsBuilder uriComponentsBuilder) {
         logger.info("request received for create afinity: {}", afinidadeDTO);
         var saved = afinidadeService.create(afinidadeDTO);
         var uri = uriComponentsBuilder.path("/afinidade/{id}").buildAndExpand(saved.getId()).toUri();

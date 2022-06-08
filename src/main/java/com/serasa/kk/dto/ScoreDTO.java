@@ -1,11 +1,17 @@
 package com.serasa.kk.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-@Data
-public class ScoreDTO {
+import java.io.Serializable;
 
-    private String descricao;
+@Data
+public class ScoreDTO implements Serializable {
+
+    @JsonAlias({"scoreDescricao", "inicial", "final"})
+    private String scoreDescricao;
     private int inicial;
+    @JsonProperty("final")
     private int scoreFinal;
 }
