@@ -7,8 +7,11 @@ public enum RegiaoEnum {
     SUDESTE("sudeste"),
     CENTRO_OESTE("centro_oeste"),
     SUL("sul");
-    private String regiao;
+    private final String regiao;
     RegiaoEnum(String regiao) {
         this.regiao = regiao;
+    }
+    public String getRegiao() {
+        return regiao;
     }
 }

@@ -25,7 +25,6 @@ public class ScoreService {
     }
 
     public String findDescriptionByScore(Integer score) {
-        var scoreDescription = scoreRepository.findDescriptionByRangeScore(score);
-        return scoreDescription;
+        return scoreRepository.findDescriptionByRangeScore(score);
     }
 }
