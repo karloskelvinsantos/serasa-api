@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "cordel_user")
+@Table(name = "serasa_user")
 public class SerasaUser implements UserDetails {
 
     private static final String USER_AUTHORITY_TABLE = "user_authority";

@@ -24,10 +24,13 @@ public class AuthService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final UserRepository repository;
-    private final JwtToken jwtToken;
+    private JwtToken jwtToken;
+
+    private JwtTokenService jwtTokenService;
 
     public AuthService(UserRepository repository, JwtTokenService jwtTokenService) {
         this.repository = repository;
+        this.jwtTokenService = jwtTokenService;
         this.jwtToken = jwtTokenService.findTop();
     }
 
@@ -41,6 +44,7 @@ public class AuthService implements UserDetailsService {
     }
 
     public TokenDTO generateToken(Authentication authentication) {
+        this.jwtToken = jwtTokenService.findTop();
 
         var principal = (SerasaUser) authentication.getPrincipal();
 
