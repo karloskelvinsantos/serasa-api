@@ -40,4 +40,6 @@ public class Pessoa {
 
     @Transient
     private List<String> estados;
+    @Transient
+    private String scoreDescricao;
 }

@@ -35,9 +35,9 @@ public class PessoaController {
     }
 
     @GetMapping
-    public Page<PessoaResponse> getAll(Pageable pageable) {
+    public ResponseEntity<List<PessoaResponse>> getAll() {
         logger.info("request received for get all persons");
-        return pessoaService.findAll(pageable);
+        return ResponseEntity.ok(pessoaService.findAll());
     }
 
     @GetMapping("/{id}")

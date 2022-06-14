@@ -6,10 +6,11 @@ import com.serasa.kk.exception.PessoaNotFoundException;
 import com.serasa.kk.model.Pessoa;
 import com.serasa.kk.repository.PessoaRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -33,20 +34,22 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
-    public Page<PessoaResponse> findAll(Pageable pageable) {
-        var page = pessoaRepository.findAllProjectBy(pageable);
-        page.stream().forEach(pessoa -> {
+    public List<PessoaResponse> findAll() {
+        var pessoas = pessoaRepository.findAll();
+        pessoas.forEach(pessoa -> {
             pessoa.setEstados(afinidadeService.getEstadosByRegiao(pessoa.getRegiao().toString()));
+            pessoa.setScoreDescricao(scoreService.findDescriptionByScore(pessoa.getScore()));
         });
 
-        return page.map(pessoa -> mapper.map(pessoa, PessoaResponse.class));
+        return pessoas.stream().map(pessoa -> mapper.map(pessoa, PessoaResponse.class)).collect(Collectors.toList());
     }
 
     public PessoaResponse findOne(Long id) {
-        var pessoaFinded = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNotFoundException(MESSAGE_PERSON_NOT_FOUND));
+        var pessoaFinded = pessoaRepository.findById(id)
+                .orElseThrow(() -> new PessoaNotFoundException(MESSAGE_PERSON_NOT_FOUND));
+
         pessoaFinded.setEstados(afinidadeService.getEstadosByRegiao(pessoaFinded.getRegiao().toString()));
-        var pessoaResponse = mapper.map(pessoaFinded, PessoaResponse.class);
-        pessoaResponse.setScoreDescricao(scoreService.findDescriptionByScore(pessoaFinded.getScore()));
-        return pessoaResponse;
+        pessoaFinded.setScoreDescricao(scoreService.findDescriptionByScore(pessoaFinded.getScore()));
+        return mapper.map(pessoaFinded, PessoaResponse.class);
     }
 }
