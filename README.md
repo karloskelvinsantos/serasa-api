@@ -19,6 +19,14 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ./mvnw spring-boot:run
 ```
 
+## Auth
+
+Para autenticar, utilizar o endpoint {context}/auth 
+
+Usuário já existente na aplicação: username: admin - password: admin
+
+Rotas mapeadas com POST, utilizar o token retornado na autenticação, na aba Authorization, type Baerer Token, utilizando o Postman
+
 ## Executing Tests
 
 For execute the tests, run command below:
@@ -27,9 +35,13 @@ For execute the tests, run command below:
 ./mvnw test
 ```
 
-## Test Api Manually, use openAPI:
+## Test Api using Open API:
 
 http://localhost:8080/swagger-ui.html
+
+## Test Api using Postman
+
+Na raiz do projeto, contém uma collection com os endpoints mapeados no Postman.
 
 ## Copyright
 
