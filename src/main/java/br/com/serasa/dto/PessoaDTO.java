@@ -1,15 +1,18 @@
 package br.com.serasa.dto;
 
-import br.com.serasa.util.RegiaoEnum;
+import br.com.serasa.model.RegiaoEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PessoaDTO {
 
     @NotBlank
@@ -24,5 +27,4 @@ public class PessoaDTO {
     @Max(1000)
     private int score;
     private RegiaoEnum regiao;
-    private LocalDateTime createdAt;
 }

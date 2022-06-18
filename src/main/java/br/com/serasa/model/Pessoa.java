@@ -1,6 +1,5 @@
 package br.com.serasa.model;
 
-import br.com.serasa.util.RegiaoEnum;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -17,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@Builder
 public class Pessoa {
 
     @Id
@@ -42,4 +41,5 @@ public class Pessoa {
     private List<String> estados;
     @Transient
     private String scoreDescricao;
+
 }

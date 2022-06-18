@@ -1,4 +1,4 @@
-package br.com.serasa.util;
+package br.com.serasa.model;
 
 public enum RegiaoEnum {
 

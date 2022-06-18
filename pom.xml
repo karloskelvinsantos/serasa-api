@@ -9,12 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.serasa.kk</groupId>
-	<artifactId>SerasaApp</artifactId>
+	<artifactId>serasaApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SerasaApp</name>
 	<description>Teste Técnico Serasa Experian</description>
 	<properties>
 		<java.version>11</java.version>
+		<docker.image.prefix>serasa</docker.image.prefix>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -89,6 +90,24 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.4</version>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<!--<goal>push</goal>-->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

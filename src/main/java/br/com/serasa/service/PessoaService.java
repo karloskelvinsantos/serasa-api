@@ -1,9 +1,9 @@
 package br.com.serasa.service;
 
 import br.com.serasa.dto.PessoaDTO;
-import br.com.serasa.model.Pessoa;
 import br.com.serasa.dto.PessoaResponse;
 import br.com.serasa.exception.PessoaNotFoundException;
+import br.com.serasa.model.Pessoa;
 import br.com.serasa.repository.PessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class PessoaService {
     public static final String MESSAGE_PERSON_NOT_FOUND = "Person not found";
 
-    private final ModelMapper mapper;
+    private ModelMapper mapper;
     private final PessoaRepository pessoaRepository;
     private final AfinidadeService afinidadeService;
     private final ScoreService scoreService;
@@ -36,6 +36,11 @@ public class PessoaService {
 
     public List<PessoaResponse> findAll() {
         var pessoas = pessoaRepository.findAll();
+
+        if (pessoas.isEmpty()) {
+            throw new PessoaNotFoundException(MESSAGE_PERSON_NOT_FOUND);
+        }
+
         pessoas.forEach(pessoa -> {
             pessoa.setEstados(afinidadeService.getEstadosByRegiao(pessoa.getRegiao().toString()));
             pessoa.setScoreDescricao(scoreService.findDescriptionByScore(pessoa.getScore()));
@@ -50,6 +55,7 @@ public class PessoaService {
 
         pessoaFinded.setEstados(afinidadeService.getEstadosByRegiao(pessoaFinded.getRegiao().toString()));
         pessoaFinded.setScoreDescricao(scoreService.findDescriptionByScore(pessoaFinded.getScore()));
+
         return mapper.map(pessoaFinded, PessoaResponse.class);
     }
 }
